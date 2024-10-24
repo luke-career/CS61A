@@ -66,12 +66,6 @@ def boar_brawl(player_score, opponent_score):
     return max(1, 3 * abs(player_ones_value - opp_tens_value))
     # END PROBLEM 2
 
-
-
-
-
-
-
 def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the points scored on a turn rolling NUM_ROLLS dice when the
     player has PLAYER_SCORE points and the opponent has OPPONENT_SCORE points.
@@ -87,12 +81,14 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    score = 0
+    if num_rolls == 0:
+        score = boar_brawl(player_score,opponent_score)
+    else:
+        score += num_rolls(num_rolls,dice)
+    return score
     
-
     # END PROBLEM 3
-
-
-
 
 
 
@@ -118,12 +114,35 @@ def num_factors(n):
     """Return the number of factors of N, including 1 and N itself."""
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    if n <= 0:
+        return 0
+    if n == 1:
+        return 1
+    num = 0
+    for temp in range(1, n + 1):
+        if n % temp == 0:
+            num += 1
+    return num
     # END PROBLEM 4
+
+
+
+
+
 
 def sus_points(score):
     """Return the new score of a player taking into account the Sus Fuss rule."""
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    #check the number of factors
+    num = num_factors(score)
+    if num == 4 or num == 3:
+         while(True):
+            score += 1
+            if(is_prime(score)):
+                return score
+    else:
+        return score
     # END PROBLEM 4
 
 def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
@@ -132,7 +151,14 @@ def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    result = simple_update(num_rolls,player_score,opponent_score,dice)
+    result = sus_points(result)
     # END PROBLEM 4
+
+
+
+
+
 
 
 def always_roll_5(score, opponent_score):
@@ -171,6 +197,8 @@ def play(strategy0, strategy1, update,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    
+
     # END PROBLEM 5
     return score0, score1
 

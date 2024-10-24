@@ -3,9 +3,9 @@ def remove(n,digit):
    while n > 0:
       n,last = n // 10, n % 10
       if last != digit:
-         kept = last
-         digits = digits * 10 + kept
+         kept = kept + last * 10 ** digits
+         digits = digits + 1
          
-   return digits
+   return kept
 
-print(remove(231,3))
+print(remove(243131,2)) 
